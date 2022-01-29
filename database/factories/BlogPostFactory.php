@@ -13,13 +13,13 @@ class BlogPostFactory extends Factory
      */
     public function definition()
     {
-        $blogLength = $this->faker->numberBetween(200, 300);
+        $paragraphsCount = $this->faker->numberBetween(5, 10);
 
         return [
             'title' => $this->faker->sentence,
-            'description' => $this->faker->text($blogLength),
-            'publication_date' => $this->faker->dateTime(),
-            'author_id' => $this->faker->numberBetween(2,10) //reserve admin blogs for feed
+            'description' => $this->faker->paragraphs($paragraphsCount, true),
+            'publication_date' => $this->faker->dateTimeThisDecade(),
+            'author_id' => $this->faker->numberBetween(2,11) //reserve admin blogs for feed
         ];
     }
 }
