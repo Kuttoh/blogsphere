@@ -5,12 +5,11 @@ namespace App\Feeds;
 use App\Exceptions\ShuttleFailedException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Log;
 
 class FeedShuttle
 {
     protected const URLS = [
-        'posts' => 'posts'
+        'posts' => 'post'
     ];
 
 
@@ -22,7 +21,7 @@ class FeedShuttle
     }
 
     /**
-     * @throws \Exception
+     * @throws ShuttleFailedException
      */
     protected static function request(string $uri): \Psr\Http\Message\ResponseInterface
     {
@@ -31,12 +30,10 @@ class FeedShuttle
 
         }catch (GuzzleException $exception){
 
-            $errorMessage = $exception->getMessage();
+            $errorMessage = "Could not fetch posts from url: ".config('services.blog-feed.base_url')."/$uri"
+                .PHP_EOL."Message: {$exception->getMessage()}";
 
-            Log::error('Feed fetch error - '.$errorMessage());
-
-            //TODO - Handle via ShuttleFailedException - throw meaningful error
-            throw new \Exception($exception->getMessage());
+            throw new ShuttleFailedException($errorMessage);
         }
 
         return $response;

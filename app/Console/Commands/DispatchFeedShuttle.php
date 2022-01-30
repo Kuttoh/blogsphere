@@ -2,10 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Exceptions\ShuttleFailedException;
+use App\Exceptions\UserNotFoundException;
+use App\Jobs\FetchBlogPosts;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-class FetchBlogPosts extends Command
+class DispatchFeedShuttle extends Command
 {
     /**
      * The name and signature of the console command.
@@ -40,11 +43,12 @@ class FetchBlogPosts extends Command
     public function handle()
     {
         try {
-            \App\Jobs\FetchBlogPosts::dispatch();
+            FetchBlogPosts::dispatch();
+        } catch (UserNotFoundException $exception){
+           throw new UserNotFoundException($exception->getMessage());
+        } catch (ShuttleFailedException $exception){
+            throw new ShuttleFailedException($exception->getMessage());
         } catch (\Exception $exception){
-            Log::error('Fetch posts job failed');
-
-            //TODO = Handle via custom exceptions
             throw new \Exception($exception->getMessage());
         }
     }
