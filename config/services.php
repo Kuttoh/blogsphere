@@ -30,4 +30,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'blog-feed' => [
+        'base_url' => env('BLOG_FEED_BASE_URL')
+    ],
 ];
