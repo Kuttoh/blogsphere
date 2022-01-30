@@ -9,7 +9,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class FeedShuttle
 {
     protected const URLS = [
-        'posts' => 'post'
+        'posts' => 'posts'
     ];
 
 
