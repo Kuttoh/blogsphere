@@ -14,8 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('minimal');
+    return view('blog-posts.index');
 });
+
+Route::get('/list', function () {
+    return view('blog-posts.index');
+})->name('demo-list');
+
+Route::get('/demo-show', function () {
+    return view('blog-posts.show');
+})->name('demo-show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
