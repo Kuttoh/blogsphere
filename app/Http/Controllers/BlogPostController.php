@@ -20,7 +20,11 @@ class BlogPostController extends Controller
 
     public function index()
     {
-        //fetch blog posts
+        $posts = $this->postRepo->all();
+
+        return view('blog-posts.index', [
+            'posts' => $posts
+        ]);
     }
 
     public function create()
@@ -41,6 +45,19 @@ class BlogPostController extends Controller
 
     public function show(BlogPost $blogPost)
     {
-        //show blogpost
+        return view('blog-posts.show', [
+            'post' => $blogPost
+        ]);
+    }
+
+    public function userPosts()
+    {
+        $author = auth()->user();
+
+        $posts = $this->postRepo->getByAuthor($author->id);
+
+        return view('blog-posts.my-posts', [
+            'posts' => $posts
+        ]);
     }
 }

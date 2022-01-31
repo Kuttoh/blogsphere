@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogPostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,20 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('blog-posts.index');
-});
-
-Route::get('/list', function () {
-    return view('blog-posts.index');
-})->name('demo-list');
-
-Route::get('/demo-show', function () {
-    return view('blog-posts.show');
-})->name('demo-show');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
+
+Route::get('/', [BlogPostController::class, 'index'])->name('posts.index');
+Route::get('/posts/{blogPost}', [BlogPostController::class, 'show'])->name('post.show');
+
+Route::middleware('auth')->group(function (){
+    Route::get('/my-posts', [BlogPostController::class, 'userPosts'])->name('posts.user');
+});

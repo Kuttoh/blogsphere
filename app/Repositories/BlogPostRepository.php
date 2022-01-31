@@ -18,8 +18,13 @@ class BlogPostRepository extends BaseRepository
         parent::__construct($model);
     }
 
-    public function all(): Collection
+    public function all()
     {
-        return $this->model->with(['author:id,full_name'])->get();
+        return $this->model->with(['author:id,last_name,first_name'])->paginate(15);
+    }
+
+    public function getByAuthor($userId)
+    {
+        return $this->model->with(['author:id,last_name,first_name'])->where('author_id', $userId)->paginate(15);
     }
 }

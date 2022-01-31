@@ -19,6 +19,8 @@ class BlogPost extends Model
         'author_id'
     ];
 
+    protected $casts = ['publication_date' => 'datetime'];
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
