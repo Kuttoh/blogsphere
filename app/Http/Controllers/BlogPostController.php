@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateBlogPost;
 use App\Models\BlogPost;
 use App\Repositories\BlogPostRepository;
-use Illuminate\Http\Request;
 
 class BlogPostController extends Controller
 {
