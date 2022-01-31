@@ -6,7 +6,7 @@
 
         <div class="pl-4">
             <a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" href="#">
-                Minimal Blog
+                Blogsphere
             </a>
         </div>
 
