@@ -14,7 +14,7 @@
                     href="{{ route('post.show', $post->id) }}"
                     class="text-blue-500 hover:underline">Read more</a>
                 <div>
-                    <h1 class="font-bold text-gray-700 hover:underline">{{ $post->author->full_name }}</h1>
+                    <small class="font-bold text-gray-700 hover:underline"><em>{{ $post->author->full_name }}</em></small>
                 </div>
             </div>
         </div>
