@@ -21,7 +21,9 @@ class BlogPostController extends Controller
 
     public function index()
     {
-        $posts = $this->postRepo->all();
+        $sort = \request()->has('sort') ? \request()->get('sort') : 'desc';
+
+        $posts = $this->postRepo->all($sort);
 
         return view('blog-posts.index', [
             'posts' => $posts
