@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\BlogPost;
-use Illuminate\Support\Collection;
 
 class BlogPostRepository extends BaseRepository
 {
