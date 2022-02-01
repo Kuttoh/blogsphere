@@ -4,11 +4,12 @@ namespace App\Repositories;
 
 use App\Models\BlogPost;
 use App\Traits\CachePaginator;
+use App\Traits\CollectionPaginator;
 use Illuminate\Support\Facades\Cache;
 
 class BlogPostRepository extends BaseRepository
 {
-    use CachePaginator;
+    use CollectionPaginator;
 
     /**
      * BlogPost constructor.
@@ -35,15 +36,9 @@ class BlogPostRepository extends BaseRepository
 
     public function getByAuthor($userId, $sortDirection = 'desc')
     {
-        // cache forever then use model observer to update cache
-        $key = 'posts_' . $userId . '_' . $sortDirection;
-        $userPosts = Cache::rememberForever($key, function () use ($userId, $sortDirection) {
-            return $this->model->with(['author:id,last_name,first_name'])
-                ->where('author_id', $userId)
-                ->orderBy('publication_date', $sortDirection)
-                ->get();
-        });
-
-        return $this->paginate($userPosts);
+        return $this->model->with(['author:id,last_name,first_name'])
+            ->where('author_id', $userId)
+            ->orderBy('publication_date', $sortDirection)
+            ->cursorPaginate(15);
     }
 }
