@@ -29,7 +29,7 @@ class BlogPostController extends Controller
 
     public function create()
     {
-        //create blog form
+       return view('blog-posts.create');
     }
 
     public function store(CreateBlogPost $request)

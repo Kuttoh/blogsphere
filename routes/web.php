@@ -21,4 +21,5 @@ Route::get('/posts/{blogPost}', [BlogPostController::class, 'show'])->name('post
 
 Route::middleware('auth')->group(function (){
     Route::get('/my-posts', [BlogPostController::class, 'userPosts'])->name('posts.user');
+    Route::get('/create-post', [BlogPostController::class, 'create'])->name('post.create');
 });

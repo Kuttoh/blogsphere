@@ -20,11 +20,15 @@ class BlogPostRepository extends BaseRepository
 
     public function all()
     {
-        return $this->model->with(['author:id,last_name,first_name'])->paginate(15);
+        return $this->model->with(['author:id,last_name,first_name'])
+            ->orderByDesc('publication_date')
+            ->cursorPaginate(15);
     }
 
     public function getByAuthor($userId)
     {
-        return $this->model->with(['author:id,last_name,first_name'])->where('author_id', $userId)->paginate(15);
+        return $this->model->with(['author:id,last_name,first_name'])
+            ->where('author_id', $userId)
+            ->cursorPaginate(15);
     }
 }
