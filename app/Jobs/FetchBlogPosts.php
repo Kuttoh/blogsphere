@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\BlogPostHasBeenCreated;
 use App\Exceptions\UserNotFoundException;
 use App\Feeds\FeedShuttle;
 use App\Models\BlogPost;
@@ -59,6 +60,8 @@ class FetchBlogPosts implements ShouldQueue
 
         if (!$exits){
             $this->createPosts($posts);
+
+            BlogPostHasBeenCreated::dispatch();
 
             $this->createFetchStat($hash);
         }

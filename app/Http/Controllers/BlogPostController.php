@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BlogPostHasBeenCreated;
 use App\Http\Requests\CreateBlogPost;
 use App\Models\BlogPost;
 use App\Repositories\BlogPostRepository;
@@ -29,7 +30,7 @@ class BlogPostController extends Controller
 
     public function create()
     {
-       return view('blog-posts.create');
+        return view('blog-posts.create');
     }
 
     public function store(CreateBlogPost $request)
@@ -41,6 +42,8 @@ class BlogPostController extends Controller
 
         $this->postRepo->store($validated);
 
+        BlogPostHasBeenCreated::dispatch();
+
         return redirect(route('posts.user'))->with('success', 'Blog post successfully published!');
     }
 
@@ -51,7 +54,7 @@ class BlogPostController extends Controller
 
         return view('blog-posts.show', [
             'post' => $blogPost,
-            'next'=> $next,
+            'next' => $next,
             'prev' => $prev
         ]);
     }
