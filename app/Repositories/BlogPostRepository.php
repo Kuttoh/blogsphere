@@ -18,18 +18,18 @@ class BlogPostRepository extends BaseRepository
         parent::__construct($model);
     }
 
-    public function all()
+    public function all($sortDirection = 'desc')
     {
         return $this->model->with(['author:id,last_name,first_name'])
-            ->orderByDesc('publication_date')
+            ->orderBy('publication_date', $sortDirection)
             ->cursorPaginate(15);
     }
 
-    public function getByAuthor($userId)
+    public function getByAuthor($userId, $sortDirection = 'desc')
     {
         return $this->model->with(['author:id,last_name,first_name'])
             ->where('author_id', $userId)
-            ->orderByDesc('publication_date')
+            ->orderBy('publication_date', $sortDirection)
             ->cursorPaginate(15);
     }
 }
