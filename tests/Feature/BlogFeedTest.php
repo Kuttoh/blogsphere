@@ -16,6 +16,7 @@ class BlogFeedTest extends TestCase
      */
     public function test_blog_feed_returns_data_in_valid_format()
     {
+        //TODO - interact with mocking for detailed integration tests
         $sample = json_encode([
             'data' => [
                 'title' => 'Lorem Ipsum',
