@@ -44,6 +44,8 @@ class BlogPostController extends Controller
 
         $this->postRepo->store($validated);
 
+        //Raise event ot update cache
+        //Queue the event listener the task will be intensive
         BlogPostHasBeenCreated::dispatch();
 
         return redirect(route('posts.user'))->with('success', 'Blog post successfully published!');

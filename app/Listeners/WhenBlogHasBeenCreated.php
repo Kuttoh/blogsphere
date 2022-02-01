@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Cache;
 
-class WhenBlogHasBeenCreated
+class WhenBlogHasBeenCreated implements ShouldQueue
 {
     /**
      * @var BlogPostRepository
@@ -33,9 +33,11 @@ class WhenBlogHasBeenCreated
      */
     public function handle(BlogPostHasBeenCreated $event)
     {
+        //clear both asc and desc order post
         Cache::forget('posts_desc');
         Cache::forget('posts_asc');
 
+        //Re-fetch blog posts to update filter
         $this->postRepo->all();
         $this->postRepo->all('asc');
     }
