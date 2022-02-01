@@ -11,16 +11,26 @@
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
 </head>
 
-
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-
+<!--Navigation-->
 @include('partials.menu')
+<!--Navigation-->
+
 <!--Container-->
-<div class="container w-full md:max-w-3xl mx-auto pt-20">
+<div class="container w-full md:max-w-3xl mx-auto pt-20 mb-10">
+    @include('partials.alerts')
     @yield('content')
 </div>
-<!--/container-->
+<!--Container-->
+
+<!--Footer-->
 @include('partials.footer')
+<!--Footer-->
+
+<!--JS-->
+
+@yield('custom-js')
+
 <script>
     /* Progress bar */
     //Source: https://alligator.io/js/progress-bar-javascript-css-variables/
@@ -63,6 +73,6 @@
         document.getElementById("nav-content").classList.toggle("hidden");
     }
 </script>
-
+<!--JS-->
 </body>
 </html>

@@ -29,6 +29,7 @@ class BlogPostRepository extends BaseRepository
     {
         return $this->model->with(['author:id,last_name,first_name'])
             ->where('author_id', $userId)
+            ->orderByDesc('publication_date')
             ->cursorPaginate(15);
     }
 }

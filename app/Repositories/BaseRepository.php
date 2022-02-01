@@ -39,4 +39,14 @@ class BaseRepository implements RepositoryInterface
     {
         return $this->model->findOrFail($id);
     }
+
+    public function next($id)
+    {
+        return $this->model->where('id', '>' , $id)->min('id');
+    }
+
+    public function previous($id)
+    {
+        return $this->model->where('id', '<' , $id)->max('id');
+    }
 }

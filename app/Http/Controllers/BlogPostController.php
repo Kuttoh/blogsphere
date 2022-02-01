@@ -37,16 +37,22 @@ class BlogPostController extends Controller
         $validated = $request->except('_token');
 
         $validated['publication_date'] = now();
+        $validated['author_id'] = auth()->id();
 
         $this->postRepo->store($validated);
 
-        return back()->with('success', 'Blog post successfully published!');
+        return redirect(route('posts.user'))->with('success', 'Blog post successfully published!');
     }
 
     public function show(BlogPost $blogPost)
     {
+        $next = $this->postRepo->next($blogPost->id);
+        $prev = $this->postRepo->previous($blogPost->id);
+
         return view('blog-posts.show', [
-            'post' => $blogPost
+            'post' => $blogPost,
+            'next'=> $next,
+            'prev' => $prev
         ]);
     }
 
@@ -56,7 +62,7 @@ class BlogPostController extends Controller
 
         $posts = $this->postRepo->getByAuthor($author->id);
 
-        return view('blog-posts.my-posts', [
+        return view('blog-posts.user-posts', [
             'posts' => $posts
         ]);
     }
