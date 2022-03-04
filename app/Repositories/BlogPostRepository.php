@@ -6,6 +6,7 @@ use App\Models\BlogPost;
 use App\Traits\CachePaginator;
 use App\Traits\CollectionPaginator;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class BlogPostRepository extends BaseRepository
 {
@@ -24,8 +25,7 @@ class BlogPostRepository extends BaseRepository
     public function all($sortDirection = 'desc')
     {
         // Enforce sort direction to be 'asc' or 'desc'
-        $sortDirection = strtolower($sortDirection);
-        if ($sortDirection != 'asc' || $sortDirection != 'desc'){
+        if (!in_array(strtolower($sortDirection), ['asc', 'desc'])){
             $sortDirection = 'desc';
         }
 
