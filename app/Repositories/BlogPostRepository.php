@@ -23,6 +23,12 @@ class BlogPostRepository extends BaseRepository
 
     public function all($sortDirection = 'desc')
     {
+        // Enforce sort direction to be 'asc' or 'desc'
+        $sortDirection = strtolower($sortDirection);
+        if ($sortDirection != 'asc' || $sortDirection != 'desc'){
+            $sortDirection = 'desc';
+        }
+
         //Cache forever, then use model observers or events to update cache
         $key = 'posts_' . $sortDirection;
         $posts = Cache::rememberForever($key, function () use ($sortDirection) {
