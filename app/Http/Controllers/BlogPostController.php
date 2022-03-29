@@ -46,7 +46,7 @@ class BlogPostController extends Controller
 
         //Raise event ot update cache
         //Queue the event listener the task will be intensive
-        BlogPostHasBeenCreated::dispatch();
+        // BlogPostHasBeenCreated::dispatch();
 
         return redirect(route('posts.user'))->with('success', 'Blog post successfully published!');
     }
